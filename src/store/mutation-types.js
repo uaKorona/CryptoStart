@@ -1,0 +1,1 @@
+export const GET_CURRENCY_LIST = 'GET_CURRENCY_LIST'
