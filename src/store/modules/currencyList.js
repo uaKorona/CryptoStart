@@ -9,7 +9,7 @@ const actions = {
 
   getCurrencyList ({ commit }) {
     axios
-      .get('https://api.coinmarketcap.com/v1/ticker/?limit=10')
+      .get('https://api.coinmarketcap.com/v1/ticker/?limit=100')
       .then(response => {
         console.log(response)
         const currencyList = response.data
