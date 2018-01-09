@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import CurrencyList from '@/components/CurrencyList/CurrencyList'
+import CurrencyList from '@/components/CurrencyList/CurrencyList.vue'
 
 Vue.use(Router)
 
