@@ -1,13 +1,11 @@
 <v-container>
 
-  <v-container v-if="loading">
-    L O A D I N G
-  </v-container>
+  <!--<v-container v-if="loading">
+    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+  </v-container>-->
 
   <v-card>
     <v-card-title>
-      Something
-      <v-spacer></v-spacer>
       <v-text-field
         append-icon="search"
         label="Search"
@@ -19,17 +17,22 @@
   </v-card>
 
   <v-data-table
-    v-if="!loading"
     v-bind:headers="headers"
     v-bind:items="currencyList"
+    v-bind:loading="loading"
     v-bind:search="search"
     v-bind:pagination.sync="pagination"
+    v-bind:rows-per-page-items="paginationFilter"
     class="elevation-1"
   >
     <template slot="items" slot-scope="props">
+      <td>{{ props.item.rank }}</td>
       <td>{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.symbol }}</td>
-      <td class="text-xs-right">{{ props.item.price_usd }}</td>
+      <td>{{ props.item.symbol }}</td>
+
+      <td class="text-xs-right">{{ props.item.price_usd | currency }}</td>
+      <td class="text-xs-right">{{ props.item.market_cap_usd | currency }}</td>
+
       <td class="text-xs-right"><img v-bind:src="props.item.imageSrc" v-bind:alt="props.item.id"></td>
     </template>
 
