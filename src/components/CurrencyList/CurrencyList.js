@@ -2,11 +2,10 @@ export default {
   name: 'CurrencyList',
   data () {
     return {
-      loading: true,
+      loading: false,
       headers: [
         {text: '#', value: 'rank', align: 'left'},
         {text: 'Name', value: 'name', align: 'left'},
-        {text: 'symbol', value: 'symbol', align: 'left'},
         {text: 'Price', value: 'price_usd'},
         {text: 'Market Cap', value: 'market_cap_usd'},
         {text: 'Price (7d)', value: 'imageSrc'}
@@ -28,9 +27,7 @@ export default {
     this.$store
       .dispatch('getCurrencyList')
       .finally(() => {
-        setTimeout(()=> {
           this.loading = false
-        }, 3000)
       })
   },
   computed: {
