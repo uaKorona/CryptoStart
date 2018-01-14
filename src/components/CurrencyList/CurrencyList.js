@@ -1,3 +1,6 @@
+import {GET_CURRENCY_LIST_ACT} from '../../store/action-types'
+import {MUTATE_FIRST_ITEM} from '../../store/mutation-types'
+
 export default {
   name: 'CurrencyList',
   data () {
@@ -25,9 +28,9 @@ export default {
     this.loading = true
 
     this.$store
-      .dispatch('getCurrencyList')
+      .dispatch(GET_CURRENCY_LIST_ACT)
       .finally(() => {
-          this.loading = false
+        this.loading = false
       })
   },
   computed: {
@@ -36,39 +39,45 @@ export default {
     }
   },
   filters: {
-    currency(value) {
-      if (!value) return ''
-
-      const maxPartLength = 3
-      const partSeparator = ','
-      const isArrayMaxPart =  index => !((index +1) % maxPartLength)
-
-      let [integerPart, fractionalPart] = value.split('.')
-      let splittedString = integerPart;
-      const isNotLastIntegerSymbol = index => (index + 1) < integerPart.length
-
-      fractionalPart = fractionalPart
-        ? '.' + fractionalPart
-        : ''
-
-      if (integerPart.length > maxPartLength) {
-
-        splittedString = integerPart
-          .split('')
-          .reverse()
-          .map((letter, index) => {
-            if (isArrayMaxPart(index) && isNotLastIntegerSymbol(index )) {
-              return partSeparator + letter
-            }
-            return letter
-          })
-          .reverse()
-          .join('')
-      }
-
-
-      return '$' + splittedString + fractionalPart;
+    currency
+  },
+  methods: {
+    changeTheFirst () {
+      this.$store
+        .commit(MUTATE_FIRST_ITEM)
     }
   }
 
+}
+
+function currency (value) {
+  if (!value) return ''
+
+  const maxPartLength = 3
+  const partSeparator = ','
+  const isArrayMaxPart = index => !((index + 1) % maxPartLength)
+
+  let [integerPart, fractionalPart] = value.split('.')
+  let splittedString = integerPart
+  const isNotLastIntegerSymbol = index => (index + 1) < integerPart.length
+
+  fractionalPart = fractionalPart
+    ? '.' + fractionalPart
+    : ''
+
+  if (integerPart.length > maxPartLength) {
+    splittedString = integerPart
+      .split('')
+      .reverse()
+      .map((letter, index) => {
+        if (isArrayMaxPart(index) && isNotLastIntegerSymbol(index)) {
+          return partSeparator + letter
+        }
+        return letter
+      })
+      .reverse()
+      .join('')
+  }
+
+  return '$' + splittedString + fractionalPart
 }
