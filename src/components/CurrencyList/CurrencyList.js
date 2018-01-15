@@ -5,7 +5,7 @@ export default {
   name: 'CurrencyList',
   data () {
     return {
-      loading: false,
+      loading: true,
       headers: [
         {text: '#', value: 'rank', align: 'left'},
         {text: 'Name', value: 'name', align: 'left'},
@@ -30,7 +30,9 @@ export default {
     this.$store
       .dispatch(GET_CURRENCY_LIST_ACT)
       .finally(() => {
-        this.loading = false
+        setTimeout(() => {
+          this.loading = false
+        }, 30000)
       })
   },
   computed: {

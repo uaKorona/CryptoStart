@@ -35,11 +35,13 @@ const mutations = {
   },
   [MUTATE_FIRST_ITEM] (state) {
     state.list[0].name = null // Modifying en existent object property - ok
-    // state.list[0].newName = Date.now() // Adding new object property directly - Error
     // Vue.set(state.list[0], 'newName', Date.now()) // Adding new object property via Vue.set - ok
+
+    // state.list[0].newName = Date.now() // Adding new object property directly - Error
     // Object.assign(state.list[0], {newName: Date.now()}) // Adding new object property directly - Error
     // state.list[0] = {...state.list[0], newName: Date.now()} // Replace that Object with a fresh one - Error
-    state.list[0] = {newName: Date.now()}
+
+    state.list.splice(0, 1, {...state.list[0], newName: Date.now()})
   }
 }
 
