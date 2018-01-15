@@ -30,9 +30,7 @@ export default {
     this.$store
       .dispatch(GET_CURRENCY_LIST_ACT)
       .finally(() => {
-        setTimeout(() => {
           this.loading = false
-        }, 30000)
       })
   },
   computed: {

@@ -1,0 +1,12 @@
+.tr-border {
+  border: transparent 10px solid;
+}
+
+tr:nth-child(1){
+  border: transparent 10px solid !important;
+}
+
+
+.img-border {
+  border: 1px solid grey;
+}
