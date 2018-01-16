@@ -45,6 +45,9 @@ export default {
     changeTheFirst () {
       this.$store
         .commit(MUTATE_FIRST_ITEM)
+    },
+    openDialog () {
+
     }
   }
 
