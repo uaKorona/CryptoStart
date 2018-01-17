@@ -1,3 +1,8 @@
 export default {
-  name: 'CurrencyPreviewDialog'
+  name: 'CurrencyPreviewDialog',
+  data() {
+    return {
+      dialogState: false
+    }
+  }
 }

@@ -1,10 +1,15 @@
 import {GET_CURRENCY_LIST_ACT} from '../../store/action-types'
 import {MUTATE_FIRST_ITEM} from '../../store/mutation-types'
+import CurrencyPreviewDialog from "../CurrencyPreviewDialog/CurrencyPreviewDialog.vue";
 
 export default {
   name: 'CurrencyList',
+  components: {
+    'currency-preview-dialog': CurrencyPreviewDialog
+  },
   data () {
     return {
+      currencyPreviewDialogState: false,
       loading: true,
       headers: [
         {text: '#', value: 'rank', align: 'left'},
@@ -46,8 +51,9 @@ export default {
       this.$store
         .commit(MUTATE_FIRST_ITEM)
     },
-    openDialog () {
-
+    openDialog (item) {
+      console.log('item', item)
+      this.currencyPreviewDialogState = true;
     }
   }
 

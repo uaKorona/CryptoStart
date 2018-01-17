@@ -32,7 +32,7 @@
     class="elevation-1"
   >
     <template slot="items" slot-scope="props">
-      <tr class="tr-td-padding">
+      <tr class="tr-td-padding" v-on:click.stop="openDialog(props.item)">
         <td>{{ props.item.rank }}</td>
         <td>
           <span>{{ props.item.newName || props.item.name }}</span>
@@ -51,5 +51,7 @@
       From {{ pageStart }} to {{ pageStop }}
     </template>
   </v-data-table>
+
+  <currency-preview-dialog></currency-preview-dialog>
 
 </v-container>
