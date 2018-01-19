@@ -1,8 +1,24 @@
 export default {
   name: 'CurrencyPreviewDialog',
-  data() {
+  props: {
+    currency: {
+      type: Object,
+      default: () => null
+    },
+    state: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    console.log(this.currency)
     return {
-      dialogState: false
+      dialogState: this.state
+    }
+  },
+  methods: {
+    closeDialog () {
+      this.dialogState = false
     }
   }
 }

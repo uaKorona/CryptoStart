@@ -10,6 +10,7 @@ export default {
   data () {
     return {
       currencyPreviewDialogState: false,
+      selectedCurrency: null,
       loading: true,
       headers: [
         {text: '#', value: 'rank', align: 'left'},
@@ -35,7 +36,7 @@ export default {
     this.$store
       .dispatch(GET_CURRENCY_LIST_ACT)
       .finally(() => {
-          this.loading = false
+        this.loading = false
       })
   },
   computed: {
@@ -52,8 +53,8 @@ export default {
         .commit(MUTATE_FIRST_ITEM)
     },
     openDialog (item) {
-      console.log('item', item)
-      this.currencyPreviewDialogState = true;
+      this.selectedCurrency = item
+      this.currencyPreviewDialogState = true
     }
   }
 
