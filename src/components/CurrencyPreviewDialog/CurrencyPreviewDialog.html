@@ -1,5 +1,4 @@
 <div>
-  currency: {{currency}} state: {{state}}
 
   <v-dialog v-model="dialogState" max-width="500px">
     <v-card>
@@ -11,7 +10,7 @@
 
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" flat @click.stop="dialogState=false">Close</v-btn>
+        <v-btn color="primary" flat @click.stop="closeDialog()">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

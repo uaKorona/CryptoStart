@@ -11,14 +11,23 @@ export default {
     }
   },
   data () {
-    console.log(this.currency)
     return {
-      dialogState: this.state
+      dialogState: false
     }
   },
   methods: {
     closeDialog () {
-      this.dialogState = false
+      this.dialogState = false;
+    }
+  },
+  watch: {
+    state (val) {
+      this.dialogState = val
+    },
+    dialogState (val) {
+      if (val === false) {
+        this.$emit('update:state', false)
+      }
     }
   }
 }

@@ -1,4 +1,10 @@
 <v-container grid-list-md>
+
+  <currency-preview-dialog
+    v-bind:currency="selectedCurrency"
+    v-bind:state.sync="currencyPreviewDialogState">
+  </currency-preview-dialog>
+
   <v-layout row wrap>
     <v-flex xs12>
       <v-card>
@@ -51,12 +57,5 @@
       From {{ pageStart }} to {{ pageStop }}
     </template>
   </v-data-table>
-
-  <currency-preview-dialog
-    v-bind:currency="selectedCurrency"
-    v-bind:state="currencyPreviewDialogState">
-  </currency-preview-dialog>
-
-  currencyPreviewDialogState: {{currencyPreviewDialogState}}
 
 </v-container>
