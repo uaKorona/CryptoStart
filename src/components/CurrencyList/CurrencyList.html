@@ -40,7 +40,7 @@
     class="elevation-1"
   >
     <template slot="items" slot-scope="props">
-      <tr class="tr-td-padding" v-on:click.stop="openDialog(props.item)">
+      <tr class="tr-td-font" v-on:click.stop="openDialog(props.item)">
         <td>{{ props.item.rank }}</td>
         <td>
           <span>{{ props.item.newName || props.item.name }}</span>
@@ -49,11 +49,13 @@
         <td class="text-xs-right">{{ props.item.market_cap_usd | currency }}</td>
         <td class="text-xs-right">{{ props.item.price_usd | currency }}</td>
         <td class="text-xs-right"
-            v-bind:class="{ 'green--text': props.item.change24Dynamic, 'red--text': !props.item.change24Dynamic }">
+            v-bind:class="{
+            'green--text': props.item.change24Dynamic,
+            'red--text': !props.item.change24Dynamic}">
           {{ props.item.percent_change_24h }}%
         </td>
 
-        <td class="text-xs-right">
+        <td class="text-xs-right" style="padding-top: 10px; padding-bottom: 10px;">
           <img class="img-border" v-bind:src="props.item.imageSrc" v-bind:alt="props.item.id">
         </td>
       </tr>
