@@ -16,8 +16,19 @@ export default class Currency {
   percent_change_7d; // -0.57
   last_updated; // 1472762067
   imageSrc = null;
+  change24Dynamic = false
 
   constructor(item = {}){
-    Object.assign(this, item);
+    Object.assign(this, item)
+    this.percent_change_24h = this.convertStringToNumber(this.percent_change_24h)
+    this.change24Dynamic = this.isDynamicPositive(this.percent_change_24h)
+  }
+
+  convertStringToNumber(str) {
+    return + str;
+  }
+
+  isDynamicPositive(num){
+     return num > 0
   }
 }

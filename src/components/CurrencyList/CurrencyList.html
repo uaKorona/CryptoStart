@@ -1,6 +1,7 @@
 <v-container grid-list-md>
 
   <currency-preview-dialog
+    v-if="currencyPreviewDialogState"
     v-bind:currency="selectedCurrency"
     v-bind:state.sync="currencyPreviewDialogState">
   </currency-preview-dialog>
@@ -29,6 +30,7 @@
 
   <v-data-table
     v-if="!loading"
+    v-bind:custom-filter="searchCurrencies"
     v-bind:headers="headers"
     v-bind:items="currencyList"
     v-bind:loading="loading"
@@ -44,8 +46,12 @@
           <span>{{ props.item.newName || props.item.name }}</span>
           <span class="grey--text text-darken-2">{{ props.item.symbol }}</span>
         </td>
-        <td class="text-xs-right">{{ props.item.price_usd | currency }}</td>
         <td class="text-xs-right">{{ props.item.market_cap_usd | currency }}</td>
+        <td class="text-xs-right">{{ props.item.price_usd | currency }}</td>
+        <td class="text-xs-right"
+            v-bind:class="{ 'green--text': props.item.change24Dynamic, 'red--text': !props.item.change24Dynamic }">
+          {{ props.item.percent_change_24h }}%
+        </td>
 
         <td class="text-xs-right">
           <img class="img-border" v-bind:src="props.item.imageSrc" v-bind:alt="props.item.id">

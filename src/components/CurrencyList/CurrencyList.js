@@ -15,8 +15,9 @@ export default {
       headers: [
         {text: '#', value: 'rank', align: 'left'},
         {text: 'Name', value: 'name', align: 'left'},
-        {text: 'Price', value: 'price_usd'},
         {text: 'Market Cap', value: 'market_cap_usd'},
+        {text: 'Price', value: 'price_usd'},
+        {text: 'Change (24h)', value: 'percent_change_24h'},
         {text: 'Price (7d)', value: 'imageSrc'}
       ],
       pagination: {
@@ -55,6 +56,15 @@ export default {
     openDialog (item) {
       this.selectedCurrency = item
       this.currencyPreviewDialogState = true
+    },
+    searchCurrencies (items, search, filter, headers) {
+      return items
+        .filter(item => {
+          const searchLowerCase = search.toLowerCase()
+
+          return item.name.toLowerCase().includes(searchLowerCase) ||
+            item.symbol.toLowerCase().includes(searchLowerCase)
+        })
     }
   }
 

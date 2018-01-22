@@ -12,21 +12,21 @@ export default {
   },
   data () {
     return {
-      dialogState: false
+      dialogState: this.state
     }
   },
   methods: {
     closeDialog () {
-      this.dialogState = false;
+      this.dialogState = false
+    },
+    updateState () {
+      this.$emit('update:state', false)
     }
   },
   watch: {
-    state (val) {
-      this.dialogState = val
-    },
     dialogState (val) {
       if (val === false) {
-        this.$emit('update:state', false)
+        this.updateState()
       }
     }
   }
