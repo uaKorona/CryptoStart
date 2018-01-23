@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import currencyList from './modules/currencyList'
+import currencyList from './modules/currencyList.store'
 
 Vue.use(Vuex)
 

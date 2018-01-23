@@ -3,6 +3,10 @@
   font-weight: 400;
 }
 
+.td-image-stub {
+  min-height: 48px;
+}
+
 .img-border {
   vertical-align: middle;
   border: 1px solid grey;

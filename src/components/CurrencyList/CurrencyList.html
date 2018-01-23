@@ -56,7 +56,11 @@
         </td>
 
         <td class="text-xs-right" style="padding-top: 10px; padding-bottom: 10px;">
-          <img class="img-border" v-bind:src="props.item.imageSrc" v-bind:alt="props.item.id">
+          <img class="img-border"
+               v-if="props.item.imageSrc"
+               v-bind:src="props.item.imageSrc"
+               v-bind:alt="props.item.id">
+          <div v-if="!props.item.imageSrc" class="td-image-stub"></div>
         </td>
       </tr>
     </template>
@@ -64,6 +68,7 @@
     <template slot="pageText" slot-scope="{ pageStart, pageStop }">
       From {{ pageStart }} to {{ pageStop }}
     </template>
+
   </v-data-table>
 
 </v-container>

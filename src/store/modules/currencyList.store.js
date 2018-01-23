@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import Vue from 'vue'
 import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM} from '../mutation-types'
 import currencyListImageHash from './currencyListImageHash'
 import Currency from '../../models/Currency'
