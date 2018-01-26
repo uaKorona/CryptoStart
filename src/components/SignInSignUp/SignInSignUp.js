@@ -20,5 +20,14 @@ export default {
       tabs: [LOGIN_TAB, REGISTER_TAB],
       tabsOption
     }
+  },
+  computed: {
+    isLoginTabActive () {
+      return this.active === LOGIN_TAB
+    },
+    isRegisterTabActive () {
+      return !this.isLoginTabActive
+    }
   }
+
 }
