@@ -22,7 +22,20 @@
       :id="tab"
     >
       <v-card flat v-if="isLoginTabActive">
-        <v-card-text>Login Tab</v-card-text>
+        <v-layout row>
+          <v-flex xs3></v-flex>
+          <v-flex xs2 class="text-xs-right">
+            <v-subheader>Normal with hint text/label</v-subheader>
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              name="input-1"
+              label="Label Text"
+              id="testing"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs3></v-flex>
+        </v-layout>
       </v-card>
 
       <v-card flat v-if="isRegisterTabActive">
