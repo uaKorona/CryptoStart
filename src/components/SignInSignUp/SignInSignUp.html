@@ -1,5 +1,5 @@
 <v-tabs v-model="active" centered fixed>
-  <v-tabs-bar>
+  <v-tabs-bar class="mb-5">
 
     <v-tabs-item
       v-for="tab in tabs"
@@ -22,20 +22,34 @@
       :id="tab"
     >
       <v-card flat v-if="isLoginTabActive">
+
         <v-layout row>
-          <v-flex xs3></v-flex>
-          <v-flex xs2 class="text-xs-right">
-            <v-subheader>Normal with hint text/label</v-subheader>
-          </v-flex>
-          <v-flex xs4>
+          <v-flex xs4 offset-xs4>
             <v-text-field
-              name="input-1"
-              label="Label Text"
-              id="testing"
+              name="userId"
+              label="Enter User ID"
+              id="userId"
             ></v-text-field>
           </v-flex>
-          <v-flex xs3></v-flex>
         </v-layout>
+
+        <v-layout row>
+          <v-flex xs4 offset-xs4>
+            <v-text-field
+              name="userPassword"
+              label="Enter User Password"
+              id="userPassword"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+
+        <v-layout row>
+          <v-flex xs12 class="text-xs-center">
+            <v-btn color="primary">Login</v-btn>
+          </v-flex>
+        </v-layout>
+
+
       </v-card>
 
       <v-card flat v-if="isRegisterTabActive">
