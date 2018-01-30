@@ -1,5 +1,6 @@
-import User from "../../models/User"
-import {SET_USER_AUTHORIZED, SET_USER_NONAUTHORIZED} from "../mutation-types";
+import User from '../../models/User'
+import {SET_USER_AUTHORIZED, SET_USER_NONAUTHORIZED} from '../mutation-types'
+import {LOGIN_USER_ACT} from '../action-types'
 
 const state = {
   user: new User({})
