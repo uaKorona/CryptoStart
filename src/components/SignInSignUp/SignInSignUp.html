@@ -21,14 +21,14 @@
       :key="tab"
       :id="tab"
     >
-      <v-card flat v-if="isLoginTabActive">
+      <v-card flat>
 
         <v-layout row>
           <v-flex xs4 offset-xs4>
             <v-text-field
-              name="userId"
-              v-bind:label="firstInputText"
-              id="userId"
+              :name="currentTab.firstInputId"
+              :label="currentTab.firstInputText"
+              :id="currentTab.firstInputId"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -36,9 +36,12 @@
         <v-layout row>
           <v-flex xs4 offset-xs4>
             <v-text-field
-              name="userPassword"
-              label="Enter User Password"
-              id="userPassword"
+              :name="currentTab.secondInputId"
+              :label="currentTab.secondInputText"
+              :id="currentTab.secondInputId"
+              :type="secondInputType"
+              :append-icon="passwordVisibility ? 'visibility_off': 'visibility'"
+              :append-icon-cb="() => (passwordVisibility = !passwordVisibility)"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -49,12 +52,9 @@
           </v-flex>
         </v-layout>
 
-
       </v-card>
 
-      <v-card flat v-if="isRegisterTabActive">
-        <v-card-text>Register Tab</v-card-text>
-      </v-card>
+
 
     </v-tabs-content>
   </v-tabs-items>

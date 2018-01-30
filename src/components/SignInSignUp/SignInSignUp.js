@@ -5,12 +5,20 @@ const tabsOption = {
   LOGIN_TAB: {
     id: 'loginTab',
     name: 'Login',
-    firstInputText: 'Enter User ID'
+    firstInputText: 'Enter User ID',
+    firstInputId: 'userId',
+    secondInputText: 'Enter User Password',
+    secondInputId: 'userPassword',
+    secondInputShowAsPassword: true
   },
   REGISTER_TAB: {
     id: 'registerTab',
     name: 'Register',
-    firstInputText: 'Enter User ID'
+    firstInputText: 'Enter User Name',
+    firstInputId: 'userName',
+    secondInputText: 'Enter User Password',
+    secondInputId: 'userPassword',
+    secondInputShowAsPassword: false
   }
 }
 
@@ -20,7 +28,8 @@ export default {
     return {
       active: LOGIN_TAB,
       tabs: [LOGIN_TAB, REGISTER_TAB],
-      tabsOption
+      tabsOption,
+      passwordVisibility: tabsOption[LOGIN_TAB].secondInputShowAsPassword
     }
   },
   computed: {
@@ -30,8 +39,11 @@ export default {
     isRegisterTabActive () {
       return !this.isLoginTabActive
     },
-    firstInputText () {
-      return tabsOption[this.active].firstInputText
+    currentTab () {
+      return tabsOption[this.active]
+    },
+    secondInputType () {
+      return this.passwordVisibility ? 'password' : 'text'
     }
   }
 
