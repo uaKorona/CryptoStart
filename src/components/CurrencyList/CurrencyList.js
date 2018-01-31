@@ -1,6 +1,6 @@
 import {GET_CURRENCY_LIST_ACT} from '../../store/action-types'
 import {MUTATE_FIRST_ITEM} from '../../store/mutation-types'
-import CurrencyPreviewDialog from "../CurrencyPreviewDialog/CurrencyPreviewDialog.vue";
+import CurrencyPreviewDialog from '../CurrencyPreviewDialog/CurrencyPreviewDialog.vue'
 
 export default {
   name: 'CurrencyList',
