@@ -4,7 +4,6 @@ export default {
   name: 'Login',
   data () {
     return {
-      currentTab: this.tabOption,
       passwordVisibility: false
     }
   },
@@ -17,7 +16,7 @@ export default {
     }
   },
   props: {
-    tabOption: {
+    currentTab: {
       type: Object,
       default: function () {
         return new TabOption()
