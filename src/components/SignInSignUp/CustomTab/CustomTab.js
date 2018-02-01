@@ -1,9 +1,11 @@
 import TabOption from '../../../models/TabOption'
 
 export default {
-  name: 'Login',
+  name: 'CustomTab',
   data () {
     return {
+      firstInput: '',
+      secondInput: '',
       passwordVisibility: false
     }
   },
@@ -12,6 +14,7 @@ export default {
       this.passwordVisibility = !this.passwordVisibility
     },
     submit () {
+      console.log(this.firstInput, this.secondInput);
       // this.isLoginTabActive ? this.login() : this.register()
     }
   },

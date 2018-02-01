@@ -21,12 +21,10 @@
       :key="tab"
       :id="tab"
     >
-      <login-tab
-        v-if="isLoginTabActive"
+      <custom-tab
         :current-tab="currentTab"
-      ></login-tab>
+      ></custom-tab>
 
-      <h3 v-if="isRegisterTabActive">Register</h3>
     </v-tabs-content>
   </v-tabs-items>
 </v-tabs>

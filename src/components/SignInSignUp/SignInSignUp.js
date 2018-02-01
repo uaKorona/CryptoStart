@@ -1,4 +1,4 @@
-import Login from './Login/Login.vue'
+import CustomTab from './CustomTab/CustomTab.vue'
 import TabOption from '../../models/TabOption'
 
 const LOGIN_TAB = 'LOGIN_TAB'
@@ -9,24 +9,20 @@ const tabsOption = {
     id: 'loginTab',
     name: 'Login',
     firstInputText: 'Enter User ID',
-    firstInputId: 'userId',
     secondInputText: 'Enter User Password',
-    secondInputId: 'userPassword'
   }),
   REGISTER_TAB: new TabOption({
     id: 'registerTab',
     name: 'Register',
     firstInputText: 'Enter User Name',
-    firstInputId: 'userName',
     secondInputText: 'Enter User Password',
-    secondInputId: 'userPassword'
   })
 }
 
 export default {
   name: 'SignInSignUp',
   components: {
-    'login-tab': Login
+    'custom-tab': CustomTab
   },
   data () {
     return {

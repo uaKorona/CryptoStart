@@ -3,9 +3,9 @@
   <v-layout row>
     <v-flex xs4 offset-xs4>
       <v-text-field
-        :name="currentTab.firstInputId"
+        :name="currentTab.name + currentTab.firstInputId"
         :label="currentTab.firstInputText"
-        :id="currentTab.firstInputId"
+        v-model="firstInput"
       ></v-text-field>
     </v-flex>
   </v-layout>
@@ -13,9 +13,9 @@
   <v-layout row>
     <v-flex xs4 offset-xs4>
       <v-text-field
-        :name="currentTab.secondInputId"
+        :name="currentTab.name + currentTab.secondInputId"
         :label="currentTab.secondInputText"
-        :id="currentTab.secondInputId"
+        v-model="secondInput"
         :type="passwordVisibility ? 'text' : 'password'"
         :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'"
         :append-icon-cb="switchPasswordVisibility"
