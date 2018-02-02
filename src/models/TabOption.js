@@ -4,10 +4,18 @@ export default class TabOption {
   firstInputText = 'Enter something'
   secondInputText = 'Enter something 2'
   firstInputValidators = []
+  secondInputValidators = []
 
   constructor (data = {}) {
     Object.assign(this, data)
-    this.firstInputValidators = this.getValidatorsAsArray(data.firstInputValidators)
+  }
+
+  get firstInputValidatorsAsArray () {
+    return this.getValidatorsAsArray(this.firstInputValidators)
+  }
+
+  get secondInputValidatorsAsArray () {
+    return this.getValidatorsAsArray(this.secondInputValidators)
   }
 
   getValidatorsAsArray (validators = {}) {

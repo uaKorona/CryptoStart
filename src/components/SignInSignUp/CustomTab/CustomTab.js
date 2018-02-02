@@ -6,7 +6,8 @@ export default {
     return {
       firstInput: '',
       secondInput: '',
-      passwordVisibility: false
+      passwordVisibility: false,
+      formValidity: true
     }
   },
   methods: {
@@ -15,6 +16,9 @@ export default {
     },
     submit () {
       console.log(this.firstInput, this.secondInput);
+      if (this.$refs.form.validate()) {
+        console.log('valid');
+      }
       // this.isLoginTabActive ? this.login() : this.register()
     }
   },

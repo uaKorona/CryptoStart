@@ -1,5 +1,8 @@
 import CustomTab from './CustomTab/CustomTab.vue'
 import TabOption from '../../models/TabOption'
+import required from '../../common/validators/required';
+import onlyNumbers from '../../common/validators/onlyNumbers';
+import minLength from '../../common/validators/minLength';
 
 const LOGIN_TAB = 'LOGIN_TAB'
 const REGISTER_TAB = 'REGISTER_TAB'
@@ -11,18 +14,25 @@ const tabsOption = {
     firstInputText: 'Enter User ID',
     secondInputText: 'Enter User Password',
     firstInputValidators: {
-      required: (value) => !!value || 'Required.',
-      email: (value) => {
-        const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Invalid e-mail.'
-      }
+      required,
+      onlyNumbers
+    },
+    secondInputValidators: {
+      required
     }
   }),
   REGISTER_TAB: new TabOption({
     id: 'registerTab',
     name: 'Register',
     firstInputText: 'Enter User Name',
-    secondInputText: 'Enter User Password'
+    secondInputText: 'Enter User Password',
+    firstInputValidators: {
+      required
+    },
+    secondInputValidators: {
+      required,
+      minLength: minLength(5)
+    }
   })
 }
 

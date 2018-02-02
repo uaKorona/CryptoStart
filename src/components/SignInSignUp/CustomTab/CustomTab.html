@@ -1,33 +1,42 @@
 <v-card flat>
+  <v-form v-model="formValidity" ref="form" lazy-validation>
 
-  <v-layout row>
-    <v-flex xs4 offset-xs4>
-      <v-text-field
-        :name="currentTab.name + currentTab.firstInputId"
-        :label="currentTab.firstInputText"
-        :rules="currentTab.firstInputValidators"
-        v-model="firstInput"
-      ></v-text-field>
-    </v-flex>
-  </v-layout>
+    <v-layout row>
+      <v-flex xs4 offset-xs4>
+        <v-text-field
+          :name="currentTab.name + currentTab.firstInputId"
+          :label="currentTab.firstInputText"
+          :required="!!currentTab.firstInputValidators.required"
+          :rules="currentTab.firstInputValidatorsAsArray"
+          v-model="firstInput"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
 
-  <v-layout row>
-    <v-flex xs4 offset-xs4>
-      <v-text-field
-        :name="currentTab.name + currentTab.secondInputId"
-        :label="currentTab.secondInputText"
-        v-model="secondInput"
-        :type="passwordVisibility ? 'text' : 'password'"
-        :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'"
-        :append-icon-cb="switchPasswordVisibility"
-      ></v-text-field>
-    </v-flex>
-  </v-layout>
+    <v-layout row>
+      <v-flex xs4 offset-xs4>
+        <v-text-field
+          :name="currentTab.name + currentTab.secondInputId"
+          :label="currentTab.secondInputText"
+          :type="passwordVisibility ? 'text' : 'password'"
+          :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'"
+          :append-icon-cb="switchPasswordVisibility"
+          :required="!!currentTab.secondInputValidators.required"
+          :rules="currentTab.secondInputValidatorsAsArray"
+          v-model="secondInput"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
 
-  <v-layout row>
-    <v-flex xs12 class="text-xs-center">
-      <v-btn color="primary" v-on:click="submit">Login</v-btn>
-    </v-flex>
-  </v-layout>
+    <v-layout row>
+      <v-flex xs12 class="text-xs-center">
+        <v-btn color="primary"
+               :disabled="!formValidity"
+               v-on:click="submit">
+          Login
+        </v-btn>
+      </v-flex>
+    </v-layout>
 
+  </v-form>
 </v-card>
