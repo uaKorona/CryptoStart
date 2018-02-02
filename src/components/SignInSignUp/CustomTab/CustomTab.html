@@ -5,6 +5,7 @@
       <v-text-field
         :name="currentTab.name + currentTab.firstInputId"
         :label="currentTab.firstInputText"
+        :rules="currentTab.firstInputValidators"
         v-model="firstInput"
       ></v-text-field>
     </v-flex>

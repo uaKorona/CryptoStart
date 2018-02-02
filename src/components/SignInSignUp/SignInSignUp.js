@@ -10,12 +10,19 @@ const tabsOption = {
     name: 'Login',
     firstInputText: 'Enter User ID',
     secondInputText: 'Enter User Password',
+    firstInputValidators: {
+      required: (value) => !!value || 'Required.',
+      email: (value) => {
+        const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Invalid e-mail.'
+      }
+    }
   }),
   REGISTER_TAB: new TabOption({
     id: 'registerTab',
     name: 'Register',
     firstInputText: 'Enter User Name',
-    secondInputText: 'Enter User Password',
+    secondInputText: 'Enter User Password'
   })
 }
 
