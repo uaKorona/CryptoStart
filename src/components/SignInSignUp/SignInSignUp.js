@@ -1,8 +1,8 @@
 import CustomTab from './CustomTab/CustomTab.vue'
 import TabOption from '../../models/TabOption'
-import required from '../../common/validators/required';
-import onlyNumbers from '../../common/validators/onlyNumbers';
-import minLength from '../../common/validators/minLength';
+import required from '../../common/validators/required'
+import onlyNumbers from '../../common/validators/onlyNumbers'
+import minLength from '../../common/validators/minLength'
 import {LOGIN_USER_ACT} from '../../store/action-types'
 
 const LOGIN_TAB = 'LOGIN_TAB'
@@ -50,7 +50,11 @@ export default {
     return {
       active: LOGIN_TAB,
       tabs: [LOGIN_TAB, REGISTER_TAB],
-      tabsOption
+      tabsOption,
+      errors: {
+        [LOGIN_TAB]: null,
+        [REGISTER_TAB]: null
+      }
     }
   },
   computed: {
@@ -62,6 +66,9 @@ export default {
     },
     currentTab () {
       return tabsOption[this.active]
+    },
+    activeError () {
+      return this.errors[this.active]
     }
   },
   methods: {
@@ -70,13 +77,26 @@ export default {
       this.isLoginTabActive ? this.login(payLoad) : this.register(payLoad)
     },
     login (payLoad) {
+      const {firstInput: userId, secondInput: userPassword} = payLoad
+
       this.$store
-        .dispatch(LOGIN_USER_ACT, payLoad)
-        .then(() => console.log('login success'))
-        .catch(err => console.error(err))
+        .dispatch(LOGIN_USER_ACT, {userId, userPassword})
+        .then(() => {
+          console.log('login success')
+          this.clearErrors()
+        })
+        .catch(this.errorHandler())
     },
     register () {
       console.log('register')
+    },
+    errorHandler () {
+      return err => {
+        this.errors[this.active] = (err && err.message) || 'unknown error ' + err
+      }
+    },
+    clearErrors () {
+      this.errors[this.active] = null
     }
   }
 }

@@ -26,6 +26,12 @@
         v-on:submitCurrentTab="submit"
       ></custom-tab>
 
+      <v-layout row v-if="activeError" class="mt-3">
+        <v-flex xs12 class="text-xs-center error--text">
+          {{activeError}}
+        </v-flex>
+      </v-layout>
+
     </v-tabs-content>
   </v-tabs-items>
 </v-tabs>
