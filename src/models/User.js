@@ -1,4 +1,4 @@
-import UserStates from "./UserStates";
+import UserStates from './UserStates'
 
 export default class User {
   id;
@@ -7,7 +7,7 @@ export default class User {
   state = UserStates.nonAuthorized;
 
   constructor ({id, name, password} = {}) {
-    Object.assign(this, {id, name, password});
+    Object.assign(this, {id, name, password})
   }
 
   setAuthorized () {

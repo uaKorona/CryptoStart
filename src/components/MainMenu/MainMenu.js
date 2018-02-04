@@ -1,9 +1,14 @@
-import {CURRENCY_LIST_ROUTE, LOGIN_ROUTE} from "../../router/routeNames";
+import {CURRENCY_LIST_ROUTE, LOGIN_ROUTE} from '../../router/routeNames'
 
 export default {
   name: 'MainMenu',
   data () {
     return {}
+  },
+  computed: {
+    isUserAuthorized () {
+      return this.$store.getters.isUserAuthorized
+    }
   },
   methods: {
     toHome () {

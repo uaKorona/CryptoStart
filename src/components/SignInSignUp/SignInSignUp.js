@@ -3,6 +3,7 @@ import TabOption from '../../models/TabOption'
 import required from '../../common/validators/required';
 import onlyNumbers from '../../common/validators/onlyNumbers';
 import minLength from '../../common/validators/minLength';
+import {LOGIN_USER_ACT} from '../../store/action-types'
 
 const LOGIN_TAB = 'LOGIN_TAB'
 const REGISTER_TAB = 'REGISTER_TAB'
@@ -19,7 +20,9 @@ const tabsOption = {
     },
     secondInputValidators: {
       required
-    }
+    },
+    submitButtonName: 'Login',
+    submitButtonStyle: 'primary'
   }),
   REGISTER_TAB: new TabOption({
     id: 'registerTab',
@@ -32,7 +35,9 @@ const tabsOption = {
     secondInputValidators: {
       required,
       minLength: minLength(5)
-    }
+    },
+    submitButtonName: 'Register',
+    submitButtonStyle: 'green'
   })
 }
 
@@ -60,13 +65,18 @@ export default {
     }
   },
   methods: {
-
-    login () {
-      console.log('login')
+    submit (payLoad) {
+      console.log(payLoad)
+      this.isLoginTabActive ? this.login(payLoad) : this.register(payLoad)
+    },
+    login (payLoad) {
+      this.$store
+        .dispatch(LOGIN_USER_ACT, payLoad)
+        .then(() => console.log('login success'))
+        .catch(err => console.error(err))
     },
     register () {
       console.log('register')
     }
   }
-
 }

@@ -5,6 +5,8 @@ export default class TabOption {
   secondInputText = 'Enter something 2'
   firstInputValidators = []
   secondInputValidators = []
+  submitButtonName = 'submitButtonName'
+  submitButtonStyle = ''
 
   constructor (data = {}) {
     Object.assign(this, data)

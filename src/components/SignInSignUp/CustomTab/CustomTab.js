@@ -15,11 +15,10 @@ export default {
       this.passwordVisibility = !this.passwordVisibility
     },
     submit () {
-      console.log(this.firstInput, this.secondInput);
       if (this.$refs.form.validate()) {
-        console.log('valid');
+        const {firstInput, secondInput} = this
+        this.$emit('submitCurrentTab', {firstInput, secondInput})
       }
-      // this.isLoginTabActive ? this.login() : this.register()
     }
   },
   props: {
