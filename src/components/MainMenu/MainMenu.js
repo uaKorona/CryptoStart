@@ -1,4 +1,4 @@
-import {CURRENCY_LIST_ROUTE, LOGIN_ROUTE} from '../../router/routeNames'
+import Navigator from '../../common/mixins/Navigator'
 
 export default {
   name: 'MainMenu',
@@ -10,15 +10,6 @@ export default {
       return this.$store.getters.isUserAuthorized
     }
   },
-  methods: {
-    toHome () {
-      this.navigateTo(CURRENCY_LIST_ROUTE)
-    },
-    toLogin () {
-      this.navigateTo(LOGIN_ROUTE)
-    },
-    navigateTo (name) {
-      return this.$router.push({name})
-    }
-  }
+  mixins: [ Navigator ],
+  methods: {}
 }

@@ -4,6 +4,7 @@ import required from '../../common/validators/required'
 import onlyNumbers from '../../common/validators/onlyNumbers'
 import minLength from '../../common/validators/minLength'
 import {LOGIN_USER_ACT} from '../../store/action-types'
+import Navigator from '../../common/mixins/Navigator'
 
 const LOGIN_TAB = 'LOGIN_TAB'
 const REGISTER_TAB = 'REGISTER_TAB'
@@ -71,6 +72,7 @@ export default {
       return this.errors[this.active]
     }
   },
+  mixins: [ Navigator ],
   methods: {
     submit (payLoad) {
       console.log(payLoad)
@@ -82,8 +84,8 @@ export default {
       this.$store
         .dispatch(LOGIN_USER_ACT, {userId, userPassword})
         .then(() => {
-          console.log('login success')
           this.clearErrors()
+          this.toHome()
         })
         .catch(this.errorHandler())
     },
