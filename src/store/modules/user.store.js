@@ -27,20 +27,37 @@ const mutations = {
 }
 
 const actions = {
+
   [LOGIN_USER_ACT] ({ state, commit }, { userId, userPassword }) {
     const foundUser = state.userList.find(user => user.id === userId)
 
     if (!foundUser) {
-      return Promise.reject(new Error('User is not found.'))
+      return rejectError('User is not found.')
     }
 
     if (foundUser.password !== userPassword) {
-      return Promise.reject(new Error('Password is invalid.'))
+      return rejectError('Password is invalid.')
     }
 
     commit(SET_USER_AUTHORIZED)
     return Promise.resolve()
+  },
+
+  [REGISTER_USER_ACT] ( { state, commit }, { name, password } ) {
+    const foundUser = state.userList.find(user => user.name === name)
+
+    if (foundUser) {
+      return rejectError('User with that name has already registered')
+    }
+
+    commit(ADD_NEW_USER, new User( { name, password } ))
+    return Promise.resolve()
   }
+
+}
+
+function rejectError(message = 'unknown error') {
+  return Promise.reject(new Error(message))
 }
 
 export default {

@@ -3,7 +3,7 @@ import TabOption from '../../models/TabOption'
 import required from '../../common/validators/required'
 import onlyNumbers from '../../common/validators/onlyNumbers'
 import minLength from '../../common/validators/minLength'
-import {LOGIN_USER_ACT} from '../../store/action-types'
+import {LOGIN_USER_ACT, REGISTER_USER_ACT} from '../../store/action-types'
 import Navigator from '../../common/mixins/Navigator'
 
 const LOGIN_TAB = 'LOGIN_TAB'
@@ -90,7 +90,16 @@ export default {
         .catch(this.errorHandler())
     },
     register (payLoad) {
-      const {firstInput: userId, secondInput: userPassword} = payLoad
+      const {firstInput: name, secondInput: password} = payLoad
+
+      this.$store
+        .dispatch(REGISTER_USER_ACT, {name, password})
+        .then(() => {
+          this.clearErrors()
+          this.toHome()
+        })
+        .catch(this.errorHandler())
+
     },
     errorHandler () {
       return err => {
