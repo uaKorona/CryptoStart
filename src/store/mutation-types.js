@@ -4,3 +4,7 @@ export const MUTATE_FIRST_ITEM = 'MUTATE_FIRST_ITEM'
 /** user */
 export const SET_USER_AUTHORIZED = 'SET_USER_AUTHORIZED'
 export const SET_USER_NONAUTHORIZED = 'SET_USER_NONAUTHORIZED'
+
+/** userList */
+export const ADD_NEW_USER = 'ADD_NEW_USER'
+

@@ -89,8 +89,8 @@ export default {
         })
         .catch(this.errorHandler())
     },
-    register () {
-      console.log('register')
+    register (payLoad) {
+      const {firstInput: userId, secondInput: userPassword} = payLoad
     },
     errorHandler () {
       return err => {
