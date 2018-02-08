@@ -21,4 +21,8 @@ export default class User {
   isUserAuthorized () {
     return this.state === UserStates.authorized
   }
+
+  static createUserId (maxExistentId) {
+    return maxExistentId + 1 + ''
+  }
 }

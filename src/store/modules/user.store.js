@@ -11,6 +11,10 @@ const state = {
 const getters = {
   isUserAuthorized ({user}) {
     return user.isUserAuthorized()
+  },
+  getMaxUserId () {
+    const ids = state.userList.map(user => +user.id)
+    return Math.max().apply(null, ids)
   }
 }
 

@@ -78,22 +78,15 @@ export default {
       console.log(payLoad)
       this.isLoginTabActive ? this.login(payLoad) : this.register(payLoad)
     },
-    login (payLoad) {
-      const {firstInput: userId, secondInput: userPassword} = payLoad
-
-      this.$store
-        .dispatch(LOGIN_USER_ACT, {userId, userPassword})
-        .then(() => {
-          this.clearErrors()
-          this.toHome()
-        })
-        .catch(this.errorHandler())
+    login ({firstInput: userId, secondInput: userPassword}) {
+      this.doAction(LOGIN_USER_ACT, {userId, userPassword})
     },
-    register (payLoad) {
-      const {firstInput: name, secondInput: password} = payLoad
-
-      this.$store
-        .dispatch(REGISTER_USER_ACT, {name, password})
+    register ({firstInput: name, secondInput: password}) {
+      this.doAction(REGISTER_USER_ACT, {name, password})
+    },
+    doAction (action, payLoad) {
+      return this.$store
+        .dispatch(action, payLoad)
         .then(() => {
           this.clearErrors()
           this.toHome()
