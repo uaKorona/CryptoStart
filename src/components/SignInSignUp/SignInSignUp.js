@@ -99,7 +99,6 @@ export default {
           this.toHome()
         })
         .catch(this.errorHandler())
-
     },
     errorHandler () {
       return err => {

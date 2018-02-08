@@ -43,20 +43,20 @@ const actions = {
     return Promise.resolve()
   },
 
-  [REGISTER_USER_ACT] ( { state, commit }, { name, password } ) {
+  [REGISTER_USER_ACT] ({state, commit}, { name, password }) {
     const foundUser = state.userList.find(user => user.name === name)
 
     if (foundUser) {
       return rejectError('User with that name has already registered')
     }
 
-    commit(ADD_NEW_USER, new User( { name, password } ))
+    commit(ADD_NEW_USER, new User({ name, password }))
     return Promise.resolve()
   }
 
 }
 
-function rejectError(message = 'unknown error') {
+function rejectError (message = 'unknown error') {
   return Promise.reject(new Error(message))
 }
 
