@@ -14,7 +14,7 @@ const getters = {
   },
   getMaxUserId () {
     const ids = state.userList.map(user => +user.id)
-    return Math.max().apply(null, ids)
+    return Math.max.apply(null, ids)
   }
 }
 
@@ -47,15 +47,20 @@ const actions = {
     return Promise.resolve()
   },
 
-  [REGISTER_USER_ACT] ({state, commit}, { name, password }) {
+  [REGISTER_USER_ACT] ({state, commit, getters, dispatch}, { name, password }) {
     const foundUser = state.userList.find(user => user.name === name)
 
     if (foundUser) {
       return rejectError('User with that name has already registered')
     }
 
-    commit(ADD_NEW_USER, new User({ name, password }))
-    return Promise.resolve()
+    const id = User.createUserId(getters.getMaxUserId)
+    commit(ADD_NEW_USER, new User({ id, name, password }))
+
+    return dispatch(LOGIN_USER_ACT, {
+      userId: id,
+      userPassword: password
+    })
   }
 
 }
