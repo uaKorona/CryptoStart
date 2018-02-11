@@ -2,12 +2,22 @@
   <v-toolbar dark fixed app>
     <v-toolbar-title v-on:click="toHome()">Application</v-toolbar-title>
     <v-spacer></v-spacer>
+
     <v-btn class="login_register_btn mx-1"
            v-if="!isUserAuthorized"
            v-on:click="toLogin()">
       <v-icon>recent_actors</v-icon>
       <span class="ml-1">Login/Register</span>
     </v-btn>
+
+    <v-btn class="login_register_btn mx-1"
+           v-if="isUserAuthorized"
+           v-on:click="toLogin()">
+      <v-icon>account_box</v-icon>
+      <span class="ml-1">{{currentUser.name}} ( {{currentUser.id}} )</span>
+    </v-btn>
+
+
   </v-toolbar>
 
   <v-content>

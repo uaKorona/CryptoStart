@@ -83,14 +83,14 @@ export default {
       this
         .doAction(LOGIN_USER_ACT, {userId, userPassword})
         .then(() => {
-          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'login successful'})
+          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Login successful'})
         })
     },
     register ({firstInput: name, secondInput: password}) {
       this
         .doAction(REGISTER_USER_ACT, {name, password})
         .then(() => {
-          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'register successful'})
+          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Registration successful'})
         })
     },
     doAction (action, payLoad) {

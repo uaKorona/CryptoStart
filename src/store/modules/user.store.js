@@ -12,15 +12,20 @@ const getters = {
   isUserAuthorized ({user}) {
     return user.isUserAuthorized()
   },
-  getMaxUserId () {
-    const ids = state.userList.map(user => +user.id)
+  getMaxUserId ({userList}) {
+    const ids = userList.map(user => +user.id)
     return Math.max.apply(null, ids)
+  },
+  currentUser ({user}) {
+    return user
   }
 }
 
 const mutations = {
-  [SET_USER_AUTHORIZED] (state) {
-    state.user.setAuthorized()
+  [SET_USER_AUTHORIZED] (state, foundUser) {
+    const update = new User(foundUser)
+    update.setAuthorized()
+    state.user = update
   },
   [SET_USER_NONAUTHORIZED] (state) {
     state.user.setNonAuthorized()
@@ -43,7 +48,7 @@ const actions = {
       return rejectError('Password is invalid.')
     }
 
-    commit(SET_USER_AUTHORIZED)
+    commit(SET_USER_AUTHORIZED, foundUser)
     return Promise.resolve()
   },
 

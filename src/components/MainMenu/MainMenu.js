@@ -1,5 +1,5 @@
 import Navigator from '../../common/mixins/Navigator'
-import {onEvent} from '../../common/EventsBus/EventsBus';
+import {onEvent} from '../../common/EventsBus/EventsBus'
 
 export default {
   name: 'MainMenu',
@@ -20,6 +20,9 @@ export default {
   computed: {
     isUserAuthorized () {
       return this.$store.getters.isUserAuthorized
+    },
+    currentUser () {
+      return this.$store.getters.currentUser
     }
   },
   mixins: [ Navigator ],
