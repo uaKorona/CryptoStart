@@ -1,5 +1,5 @@
 import Navigator from '../../common/mixins/Navigator'
-import {onEvent} from '../../common/EventsBus/EventsBus'
+import {onEvent, USER_LOGIN_SUCCESSFULLY} from '../../common/EventsBus/EventsBus'
 
 export default {
   name: 'MainMenu',
@@ -13,7 +13,7 @@ export default {
     }
   },
   created () {
-    onEvent('USER_LOGIN_SUCCESSFULLY', ({text, color}) => {
+    onEvent(USER_LOGIN_SUCCESSFULLY, ({text, color}) => {
       this.showSnackBar(text, color)
     })
   },
