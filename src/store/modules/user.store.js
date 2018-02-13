@@ -1,10 +1,10 @@
 import User from '../../models/User'
 import {SET_USER_AUTHORIZED, SET_USER_NONAUTHORIZED, ADD_NEW_USER} from '../mutation-types'
-import {LOGIN_USER_ACT, REGISTER_USER_ACT} from '../action-types'
+import {LOGIN_USER_ACT, REGISTER_USER_ACT, LOGOUT_USER_ACT} from '../action-types'
 import userList from './userList'
 
 const state = {
-  user: new User({}),
+  user: new User(),
   userList: userList
 }
 
@@ -28,7 +28,7 @@ const mutations = {
     state.user = update
   },
   [SET_USER_NONAUTHORIZED] (state) {
-    state.user.setNonAuthorized()
+    state.user = new User()
   },
   [ADD_NEW_USER] (state, newUser) {
     state.userList.push(newUser)
@@ -66,6 +66,11 @@ const actions = {
       userId: id,
       userPassword: password
     })
+  },
+
+  async [LOGOUT_USER_ACT] ({ commit }) {
+    commit(SET_USER_NONAUTHORIZED)
+    return Promise.resolve()
   }
 
 }
