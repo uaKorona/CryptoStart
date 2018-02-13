@@ -24,6 +24,7 @@
           :required="!!currentTab.secondInputValidators.required"
           :rules="currentTab.secondInputValidatorsAsArray"
           v-model="secondInput"
+          @keyup.enter="submit"
         ></v-text-field>
       </v-flex>
     </v-layout>
