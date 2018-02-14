@@ -5,8 +5,7 @@ import onlyNumbers from '../../common/validators/onlyNumbers'
 import minLength from '../../common/validators/minLength'
 import {LOGIN_USER_ACT, REGISTER_USER_ACT} from '../../store/action-types'
 import Navigator from '../../common/mixins/Navigator'
-import {emitEvent, USER_LOGIN_SUCCESSFULLY} from '../../common/EventsBus/EventsBus';
-
+import {emitEvent, USER_LOGIN_SUCCESSFULLY} from '../../common/EventsBus/EventsBus'
 
 const LOGIN_TAB = 'LOGIN_TAB'
 const REGISTER_TAB = 'REGISTER_TAB'
@@ -79,33 +78,27 @@ export default {
     submit (payLoad) {
       this.isLoginTabActive ? this.login(payLoad) : this.register(payLoad)
     },
-    login ({firstInput: userId, secondInput: userPassword}) {
-      this
-        .doAction(LOGIN_USER_ACT, {userId, userPassword})
-        .then(() => {
-          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Login successful'})
-        })
+    async login ({firstInput: userId, secondInput: userPassword}) {
+      await this.doAction(LOGIN_USER_ACT, {userId, userPassword})
+      emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Login successful'})
     },
-    register ({firstInput: name, secondInput: password}) {
-      this
-        .doAction(REGISTER_USER_ACT, {name, password})
-        .then(() => {
-          emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Registration successful'})
-        })
+    async register ({firstInput: name, secondInput: password}) {
+      await this.doAction(REGISTER_USER_ACT, {name, password})
+      emitEvent(USER_LOGIN_SUCCESSFULLY, {text: 'Registration successful'})
     },
-    doAction (action, payLoad) {
-      return this.$store
+    async doAction (action, payLoad) {
+      const result = await this.$store
         .dispatch(action, payLoad)
-        .then(() => {
-          this.clearErrors()
-          this.toHome()
-        })
         .catch(this.errorHandler())
+
+      this.clearErrors()
+      this.toHome()
+      return result
     },
     errorHandler () {
       return err => {
         this.errors[this.active] = (err && err.message) || 'unknown error ' + err
-        throw new Error()
+        throw err
       }
     },
     clearErrors () {

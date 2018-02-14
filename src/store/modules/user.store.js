@@ -37,7 +37,7 @@ const mutations = {
 
 const actions = {
 
-  [LOGIN_USER_ACT] ({ state, commit }, { userId, userPassword }) {
+  async [LOGIN_USER_ACT] ({ state, commit }, { userId, userPassword }) {
     const foundUser = state.userList.find(user => user.id === userId)
 
     if (!foundUser) {
@@ -52,7 +52,7 @@ const actions = {
     return Promise.resolve()
   },
 
-  [REGISTER_USER_ACT] ({state, commit, getters, dispatch}, { name, password }) {
+  async [REGISTER_USER_ACT] ({state, commit, getters, dispatch}, { name, password }) {
     const foundUser = state.userList.find(user => user.name === name)
 
     if (foundUser) {
