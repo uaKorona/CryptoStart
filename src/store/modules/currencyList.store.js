@@ -2,7 +2,7 @@ import axios from 'axios'
 import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM} from '../mutation-types'
 import currencyListImageHash from './currencyListImageHash'
 import Currency from '../../models/Currency'
-import {GET_CURRENCY_LIST_ACT} from '../action-types'
+import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT} from '../action-types'
 
 const state = {
   list: []
@@ -14,9 +14,21 @@ const actions = {
     axios
       .get('https://api.coinmarketcap.com/v1/ticker/?limit=100')
       .then(response => {
-        console.log(response)
         const currencyList = response.data
         commit(GET_CURRENCY_LIST, { currencyList })
+      })
+  },
+
+  [GET_CURRENCY_LIST_BINANCE_ACT] ({ commit }) {
+    axios
+      .get('/binance/api/v3/ticker/price')
+      .then(response => {
+        console.log(response)
+        // const currencyList = response.data
+        // commit(GET_CURRENCY_LIST, { currencyList })
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 

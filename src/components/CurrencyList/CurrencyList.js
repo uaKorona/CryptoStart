@@ -1,8 +1,7 @@
-import {GET_CURRENCY_LIST_ACT} from '../../store/action-types'
+import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT} from '../../store/action-types'
 import {MUTATE_FIRST_ITEM} from '../../store/mutation-types'
 import CurrencyPreviewDialog from '../CurrencyPreviewDialog/CurrencyPreviewDialog.vue'
-
-// https://www.binance.com/exchange/public/product
+import {asyncSetTimeout} from '../../common/mixins/AsyncSetTimeout';
 
 export default {
   name: 'CurrencyList',
@@ -33,14 +32,13 @@ export default {
       search: ''
     }
   },
-  created () {
+  async created () {
     this.loading = true
+    await this.$store.dispatch(GET_CURRENCY_LIST_ACT)
+    this.loading = false
 
-    this.$store
-      .dispatch(GET_CURRENCY_LIST_ACT)
-      .finally(() => {
-        this.loading = false
-      })
+    await asyncSetTimeout(300)
+    await this.$store.dispatch(GET_CURRENCY_LIST_BINANCE_ACT)
   },
   computed: {
     currencyList: function () {
