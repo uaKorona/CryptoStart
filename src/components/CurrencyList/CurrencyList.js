@@ -18,6 +18,7 @@ export default {
         {text: 'Name', value: 'name', align: 'left'},
         {text: 'Market Cap', value: 'market_cap_usd'},
         {text: 'Price', value: 'price_usd'},
+        {text: 'Binance', value: 'isOnBinance'},
         {text: 'Change (24h)', value: 'percent_change_24h'},
         {text: 'Price (7d)', value: 'imageSrc'}
       ],

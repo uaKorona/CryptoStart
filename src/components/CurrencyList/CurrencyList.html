@@ -48,6 +48,7 @@
         </td>
         <td class="text-xs-right">{{ props.item.market_cap_usd | currency }}</td>
         <td class="text-xs-right">{{ props.item.price_usd | currency }}</td>
+        <td class="text-xs-right"><v-icon v-show="props.item.isOnBinance" color="green">check_circle</v-icon></td>
         <td class="text-xs-right"
             v-bind:class="{
             'green--text': props.item.change24Dynamic,

@@ -16,7 +16,8 @@ export default class Currency {
   percent_change_7d; // -0.57
   last_updated; // 1472762067
   imageSrc = null;
-  change24Dynamic = false
+  change24Dynamic = false;
+  isOnBinance = false;
 
   constructor(item = {}){
     Object.assign(this, item)

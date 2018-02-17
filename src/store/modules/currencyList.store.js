@@ -1,8 +1,9 @@
 import axios from 'axios'
-import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM} from '../mutation-types'
+import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM, UPDATE_CURRENCY_LIST_BY_BINANCE} from '../mutation-types'
 import currencyListImageHash from './currencyListImageHash'
 import Currency from '../../models/Currency'
 import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT} from '../action-types'
+import BCoinSimple from '../../models/BCoinSimple'
 
 const state = {
   list: []
@@ -24,8 +25,8 @@ const actions = {
       .get('/binance/api/v3/ticker/price')
       .then(response => {
         console.log(response)
-        // const currencyList = response.data
-        // commit(GET_CURRENCY_LIST, { currencyList })
+        const binanceHash = getHashFromBinanceList(response.data || [])
+        commit(UPDATE_CURRENCY_LIST_BY_BINANCE, { binanceHash })
       })
       .catch((err) => {
         console.log(err)
@@ -53,6 +54,14 @@ const mutations = {
     // state.list[0] = {...state.list[0], newName: Date.now()} // Replace that Object with a fresh one - Error
 
     state.list.splice(0, 1, {...state.list[0], newName: Date.now()})
+  },
+  [UPDATE_CURRENCY_LIST_BY_BINANCE] (state, {binanceHash = {}}) {
+    state.list.forEach(coin => {
+      const btcSymbol = coin.symbol + 'BTC'
+      const ethSymbol = coin.symbol + 'ETH'
+      const isFound = !!(binanceHash[btcSymbol] || binanceHash[ethSymbol])
+      coin.isOnBinance = isFound
+    })
   }
 }
 
@@ -70,4 +79,13 @@ function parseCurrencyList (currencyList = []) {
       currency.imageSrc = currencyListImageHash[currency.id] || null
       return currency
     })
+}
+
+function getHashFromBinanceList (binanceList = []) {
+  const hash = {}
+  binanceList
+    .forEach(bCoin => {
+      hash[bCoin.symbol] = new BCoinSimple(bCoin)
+    })
+  return hash
 }
