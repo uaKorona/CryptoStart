@@ -39,6 +39,10 @@ export default {
     this.loading = false
 
     await asyncSetTimeout(300)
+    await this.$store.dispatch(GET_CURRENCY_LIST_ACT, {start: 101});
+    await asyncSetTimeout(300)
+    await this.$store.dispatch(GET_CURRENCY_LIST_ACT, {start: 201});
+    await asyncSetTimeout(300)
     await this.$store.dispatch(GET_CURRENCY_LIST_BINANCE_ACT)
   },
   computed: {

@@ -11,9 +11,10 @@ const state = {
 
 const actions = {
 
-  [GET_CURRENCY_LIST_ACT] ({ commit }) {
+  [GET_CURRENCY_LIST_ACT] ({ commit }, payload = {}) {
+    const url = getCoinmarketUrl(payload.start)
     axios
-      .get('https://api.coinmarketcap.com/v1/ticker/?limit=100')
+      .get(url)
       .then(response => {
         const currencyList = response.data
         commit(GET_CURRENCY_LIST, { currencyList })
@@ -43,7 +44,13 @@ const getters = {
 
 const mutations = {
   [GET_CURRENCY_LIST] (state, {currencyList}) {
-    state.list = parseCurrencyList(currencyList)
+    const parsedList = parseCurrencyList(currencyList)
+
+    if (state.list.length) {
+      parsedList.forEach(coin => state.list.push(coin))
+    } else {
+      state.list = parsedList
+    }
   },
   [MUTATE_FIRST_ITEM] (state) {
     state.list[0].name = null // Modifying en existent object property - ok
@@ -59,8 +66,7 @@ const mutations = {
     state.list.forEach(coin => {
       const btcSymbol = coin.symbol + 'BTC'
       const ethSymbol = coin.symbol + 'ETH'
-      const isFound = !!(binanceHash[btcSymbol] || binanceHash[ethSymbol])
-      coin.isOnBinance = isFound
+      coin.isOnBinance = !!(binanceHash[btcSymbol] || binanceHash[ethSymbol])
     })
   }
 }
@@ -88,4 +94,12 @@ function getHashFromBinanceList (binanceList = []) {
       hash[bCoin.symbol] = new BCoinSimple(bCoin)
     })
   return hash
+}
+
+function getCoinmarketUrl (start) {
+  const url = 'https://api.coinmarketcap.com/v1/ticker/?limit=100'
+  if (start && parseInt(start)) {
+    return url + '&start=' + start
+  }
+  return url
 }
