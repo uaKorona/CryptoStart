@@ -1,9 +1,10 @@
 import axios from 'axios'
-import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM, UPDATE_CURRENCY_LIST_BY_BINANCE} from '../mutation-types'
+import {GET_CURRENCY_LIST, MUTATE_FIRST_ITEM, UPDATE_CURRENCY_LIST_BY_BINANCE, APPEND_TO_CURRENCY_LIST} from '../mutation-types'
 import currencyListImageHash from './currencyListImageHash'
 import Currency from '../../models/Currency'
-import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT} from '../action-types'
+import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT, APPEND_TO_CURRENCY_LIST_ACT} from '../action-types'
 import BCoinSimple from '../../models/BCoinSimple'
+import {asyncSetTimeout} from '../../common/mixins/AsyncSetTimeout'
 
 const state = {
   list: []
@@ -11,21 +12,34 @@ const state = {
 
 const actions = {
 
-  [GET_CURRENCY_LIST_ACT] ({ commit }, payload = {}) {
-    const url = getCoinmarketUrl(payload.start)
-    axios
-      .get(url)
-      .then(response => {
-        const currencyList = response.data
-        commit(GET_CURRENCY_LIST, { currencyList })
-      })
+  async [GET_CURRENCY_LIST_ACT] ({ commit, dispatch, state }) {
+    if (state.list.length) {
+      return Promise.resolve()
+    }
+    const url = getCoinmarketUrl()
+    const currencyList = await doCoinmarketRequest(url)
+    commit(GET_CURRENCY_LIST, { currencyList })
+
+    const delay = 300
+    setTimeout(async () => {
+      await dispatch(APPEND_TO_CURRENCY_LIST_ACT)
+      await asyncSetTimeout(delay)
+      await dispatch(APPEND_TO_CURRENCY_LIST_ACT)
+      await asyncSetTimeout(delay)
+      await dispatch(GET_CURRENCY_LIST_BINANCE_ACT)
+    }, delay)
+  },
+
+  async [APPEND_TO_CURRENCY_LIST_ACT] ({ commit, state }) {
+    const url = getCoinmarketUrl(state.list.length)
+    const currencyListUpdate = await doCoinmarketRequest(url)
+    commit(APPEND_TO_CURRENCY_LIST, { currencyListUpdate })
   },
 
   [GET_CURRENCY_LIST_BINANCE_ACT] ({ commit }) {
     axios
       .get('/binance/api/v3/ticker/price')
       .then(response => {
-        console.log(response)
         const binanceHash = getHashFromBinanceList(response.data || [])
         commit(UPDATE_CURRENCY_LIST_BY_BINANCE, { binanceHash })
       })
@@ -44,13 +58,11 @@ const getters = {
 
 const mutations = {
   [GET_CURRENCY_LIST] (state, {currencyList}) {
-    const parsedList = parseCurrencyList(currencyList)
-
-    if (state.list.length) {
-      parsedList.forEach(coin => state.list.push(coin))
-    } else {
-      state.list = parsedList
-    }
+    state.list = parseCurrencyList(currencyList)
+  },
+  [APPEND_TO_CURRENCY_LIST] (state, {currencyListUpdate}) {
+    parseCurrencyList(currencyListUpdate)
+      .forEach(coin => state.list.push(coin))
   },
   [MUTATE_FIRST_ITEM] (state) {
     state.list[0].name = null // Modifying en existent object property - ok
@@ -99,7 +111,12 @@ function getHashFromBinanceList (binanceList = []) {
 function getCoinmarketUrl (start) {
   const url = 'https://api.coinmarketcap.com/v1/ticker/?limit=100'
   if (start && parseInt(start)) {
-    return url + '&start=' + start
+    return url + '&start=' + (+start + 1)
   }
   return url
+}
+
+async function doCoinmarketRequest (url) {
+  const response = await axios.get(url)
+  return response.data
 }
