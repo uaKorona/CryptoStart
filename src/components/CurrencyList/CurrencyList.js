@@ -9,19 +9,13 @@ export default {
     'currency-preview-dialog': CurrencyPreviewDialog
   },
   data () {
+    const headers = this.headersFilter()
+
     return {
       currencyPreviewDialogState: false,
       selectedCurrency: null,
       loading: true,
-      headers: [
-        {text: '#', value: 'rank', align: 'left'},
-        {text: 'Name', value: 'name', align: 'left'},
-        {text: 'Market Cap', value: 'market_cap_usd'},
-        {text: 'Price', value: 'price_usd'},
-        {text: 'Binance', value: 'isOnBinance'},
-        {text: 'Change (24h)', value: 'percent_change_24h'},
-        {text: 'Price (7d)', value: 'imageSrc'}
-      ],
+      headers,
       pagination: {
         sortBy: 'rank',
         rowsPerPage: 50
@@ -47,6 +41,9 @@ export default {
     currency
   },
   methods: {
+    isUserAuthorized () {
+      return this.$store.getters.isUserAuthorized
+    },
     changeTheFirst () {
       this.$store
         .commit(MUTATE_FIRST_ITEM)
@@ -63,6 +60,22 @@ export default {
           return item.name.toLowerCase().includes(searchLowerCase) ||
             item.symbol.toLowerCase().includes(searchLowerCase)
         })
+    },
+    headersFilter () {
+      return [
+        {text: '#', value: 'rank', align: 'left'},
+        {text: 'Name', value: 'name', align: 'left'},
+        {text: 'Market Cap', value: 'market_cap_usd'},
+        {text: 'Price', value: 'price_usd'},
+        {text: 'Binance', value: 'isOnBinance'},
+        {text: 'Change (24h)', value: 'percent_change_24h'},
+        {text: 'Price (7d)', value: 'imageSrc'}
+      ].filter(header => {
+        if (this.isUserAuthorized()) {
+          return true
+        }
+        return header.text !== 'Binance'
+      })
     }
   }
 
