@@ -1,4 +1,4 @@
-import {CURRENCY_LIST_ROUTE, LOGIN_ROUTE} from '../../router/routeNames'
+import {CURRENCY_LIST_ROUTE, LOGIN_ROUTE, SETTINGS_ROUTE} from '../../router/routeNames'
 
 export default {
   methods: {
@@ -7,6 +7,9 @@ export default {
     },
     toLogin () {
       this.navigateTo(LOGIN_ROUTE)
+    },
+    toSettings () {
+      this.navigateTo(SETTINGS_ROUTE)
     },
     navigateTo (name) {
       return this.$router.push({name})
