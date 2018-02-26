@@ -3,16 +3,19 @@
   <v-dialog v-model="dialogState" max-width="500px">
 
     <v-card>
-      <v-card-title>
-        24hr Ticker price change statistics
-      </v-card-title>
+      <v-card-title>24hr Ticker price change statistics</v-card-title>
 
       <v-container v-if="loading">
         <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </v-container>
 
-      <v-card-text v-if="!loading">
-      </v-card-text>
+      <v-container grid-list-md v-if="!loading">
+        <v-layout row wrap >
+          <v-flex xs3 text-xs-right class="title">Last Price</v-flex><v-flex xs9>99$</v-flex>
+          <v-flex xs3 text-xs-right class="title">24h</v-flex><v-flex xs9>-3%$</v-flex>
+        </v-layout>
+      </v-container>
+
 
       <v-card-actions>
         <v-btn color="primary" flat @click.stop="closeDialog()">Close</v-btn>
