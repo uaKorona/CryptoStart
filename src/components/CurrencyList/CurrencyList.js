@@ -49,8 +49,10 @@ export default {
         .commit(MUTATE_FIRST_ITEM)
     },
     openDialog (item) {
-      this.selectedCurrency = item
-      this.currencyPreviewDialogState = true
+      if (this.isUserAuthorized() && item.isOnBinance) {
+        this.selectedCurrency = item
+        this.currencyPreviewDialogState = true
+      }
     },
     searchCurrencies (items, search, filter, headers) {
       return items
