@@ -1,14 +1,19 @@
 <div>
 
   <v-dialog v-model="dialogState" max-width="500px">
+
     <v-card>
       <v-card-title>
-        Dialog 2
+        24hr Ticker price change statistics
       </v-card-title>
-      <v-card-text>
 
+      <v-container v-if="loading">
+        <v-progress-circular indeterminate color="primary"></v-progress-circular>
+      </v-container>
 
+      <v-card-text v-if="!loading">
       </v-card-text>
+
       <v-card-actions>
         <v-btn color="primary" flat @click.stop="closeDialog()">Close</v-btn>
       </v-card-actions>

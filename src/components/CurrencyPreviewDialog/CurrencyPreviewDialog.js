@@ -1,3 +1,7 @@
+import axios from 'axios'
+import BCoin24 from '../../models/BCoin24'
+const binanceApiUrl = (symbol) => `/binance/api/v1/ticker/24hr?symbol=${symbol}`
+
 export default {
   name: 'CurrencyPreviewDialog',
   props: {
@@ -11,8 +15,12 @@ export default {
     }
   },
   data () {
+    setTimeout(() => this.getCurrencyDetail(), 50)
+
     return {
-      dialogState: this.state
+      dialogState: this.state,
+      bCoin: null,
+      loading: true
     }
   },
   methods: {
@@ -21,6 +29,18 @@ export default {
     },
     updateState () {
       this.$emit('update:state', false)
+    },
+    getCurrencyDetail () {
+      const btcSymbol = this.currency.symbol + 'BTC'
+      const url = binanceApiUrl(btcSymbol)
+
+      return axios
+        .get(url)
+        .then(response => {
+          this.bCoin = new BCoin24(response.data)
+          this.loading = false
+          console.log(this.bCoin)
+        })
     }
   },
   watch: {
