@@ -1,5 +1,6 @@
 import axios from 'axios'
 import BCoin24 from '../../models/BCoin24'
+import currencyFilter from '../../common/filters/currencyFilter'
 const binanceApiUrl = (symbol) => `/binance/api/v1/ticker/24hr?symbol=${symbol}`
 
 export default {
@@ -20,8 +21,12 @@ export default {
     return {
       dialogState: this.state,
       bCoin: null,
-      loading: true
+      loading: true,
+      pairCoin: 'BTC'
     }
+  },
+  filters: {
+    currencyFilter
   },
   methods: {
     closeDialog () {
@@ -31,7 +36,7 @@ export default {
       this.$emit('update:state', false)
     },
     getCurrencyDetail () {
-      const btcSymbol = this.currency.symbol + 'BTC'
+      const btcSymbol = this.currency.symbol + this.pairCoin
       const url = binanceApiUrl(btcSymbol)
 
       return axios

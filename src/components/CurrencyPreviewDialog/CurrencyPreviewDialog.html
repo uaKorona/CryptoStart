@@ -3,21 +3,41 @@
   <v-dialog v-model="dialogState" max-width="500px">
 
     <v-card>
-      <v-card-title>24hr Ticker price change statistics</v-card-title>
+      <v-card-title primary-title>
+        <div class="headline" style="width: 100%">{{currency.symbol +  '/' + pairCoin }}</div>
+        <div class="subheading text--lighten-3">24hr Ticker price change statistics</div>
+      </v-card-title>
+
 
       <v-container v-if="loading">
         <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </v-container>
 
-      <v-container grid-list-md v-if="!loading">
-        <v-layout row wrap >
-          <v-flex xs3 text-xs-right class="title">Last Price</v-flex><v-flex xs9>99$</v-flex>
-          <v-flex xs3 text-xs-right class="title">24h</v-flex><v-flex xs9>-3%$</v-flex>
+      <v-container grid-list-md v-if="!loading" class="pl-3 title grey--text">
+
+        <v-layout row wrap>
+          <v-flex xs4>24 CHANGE</v-flex>
+          <v-flex xs4 class="text-xs-right"
+                  :class="{ 'green--text': currency.change24Dynamic,
+                            'red--text': !currency.change24Dynamic }"
+          >{{bCoin.priceChange | currencyFilter}}</v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs4>24 CHANGE %</v-flex>
+          <v-flex xs4 class="text-xs-right"
+                  :class="{ 'green--text': currency.change24Dynamic,
+                            'red--text': !currency.change24Dynamic }"
+          >{{bCoin.priceChangePercent}}%</v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs4>AVERAGE</v-flex>
+          <v-flex xs4 class="text-xs-right black--text">
+            {{bCoin.weightedAvgPrice| currencyFilter}}</v-flex>
         </v-layout>
       </v-container>
 
 
-      <v-card-actions>
+      <v-card-actions class="text-xs-right" style="justify-content:center">
         <v-btn color="primary" flat @click.stop="closeDialog()">Close</v-btn>
       </v-card-actions>
     </v-card>

@@ -2,6 +2,7 @@ import {GET_CURRENCY_LIST_ACT, GET_CURRENCY_LIST_BINANCE_ACT} from '../../store/
 import {MUTATE_FIRST_ITEM} from '../../store/mutation-types'
 import CurrencyPreviewDialog from '../CurrencyPreviewDialog/CurrencyPreviewDialog.vue'
 import {asyncSetTimeout} from '../../common/mixins/AsyncSetTimeout';
+import currencyFilter from '../../common/filters/currencyFilter'
 
 export default {
   name: 'CurrencyList',
@@ -38,7 +39,7 @@ export default {
     }
   },
   filters: {
-    currency
+    currencyFilter
   },
   methods: {
     isUserAuthorized () {
@@ -83,34 +84,4 @@ export default {
 
 }
 
-function currency (value) {
-  if (!value) return ''
 
-  const maxPartLength = 3
-  const partSeparator = ','
-  const isArrayMaxPart = index => !((index + 1) % maxPartLength)
-
-  let [integerPart, fractionalPart] = value.split('.')
-  let splittedString = integerPart
-  const isNotLastIntegerSymbol = index => (index + 1) < integerPart.length
-
-  fractionalPart = fractionalPart
-    ? '.' + fractionalPart
-    : ''
-
-  if (integerPart.length > maxPartLength) {
-    splittedString = integerPart
-      .split('')
-      .reverse()
-      .map((letter, index) => {
-        if (isArrayMaxPart(index) && isNotLastIntegerSymbol(index)) {
-          return partSeparator + letter
-        }
-        return letter
-      })
-      .reverse()
-      .join('')
-  }
-
-  return '$' + splittedString + fractionalPart
-}
