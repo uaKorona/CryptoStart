@@ -13,10 +13,6 @@ export default {
       snackBarText: ''
     }
   },
-  created () {
-    onEvent(USER_LOGIN_SUCCESSFULLY, this.eventHandler())
-    onEvent(USER_LOGOUT_SUCCESSFULLY, this.eventHandler())
-  },
   computed: {
     isUserAuthorized () {
       return this.$store.getters.isUserAuthorized
@@ -45,5 +41,11 @@ export default {
       emitEvent(USER_LOGOUT_SUCCESSFULLY, {text: 'Logout successful'})
       this.toHome()
     }
-  }
+  },
+
+  /** Lifecycle Hooks */
+  created () {
+    onEvent(USER_LOGIN_SUCCESSFULLY, this.eventHandler())
+    onEvent(USER_LOGOUT_SUCCESSFULLY, this.eventHandler())
+  },
 }
