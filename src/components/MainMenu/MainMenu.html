@@ -11,10 +11,7 @@
     </v-btn>
 
     <v-menu open-on-hover bottom offset-y v-if="isUserAuthorized">
-      <v-btn class="login_register_btn mx-1"
-             v-if="isUserAuthorized"
-             slot="activator"
-             >
+      <v-btn class="login_register_btn mx-1" slot="activator">
         <v-icon>account_box</v-icon>
         <span class="ml-1">{{currentUser.name}} ( {{currentUser.id}} )</span>
       </v-btn>
