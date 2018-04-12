@@ -75,13 +75,13 @@ const actions = {
 
 }
 
-function rejectError (message = 'unknown error') {
-  return Promise.reject(new Error(message))
-}
-
 export default {
   state,
   getters,
   actions,
   mutations
+}
+
+function rejectError (message = 'unknown error') {
+  return Promise.reject(new Error(message))
 }
